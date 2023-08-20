@@ -11,15 +11,21 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // Jackson extensions for Kotlin for working with JSON
-    implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin reflection library, required for working with Spring
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.bootJar {
-    enabled = false
+    mainClass.set("jerin.ignatious.MainApplication")
 }
 
-tasks.bootRun {
-    enabled = false
+val bootRun: org.springframework.boot.gradle.tasks.run.BootRun by tasks
+bootRun.apply {
+    val bootRunJvmArgs = emptyList<String>()
+    jvmArgs = bootRunJvmArgs
+    args = getDefaultJVMArgs()
+}
+
+fun getDefaultJVMArgs(): List<String> {
+    return listOf(
+        "--spring.config.additional-location= file:${project.projectDir.absolutePath}/../"
+    )
 }
