@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: kotlin-spring-app
+  main:
+    banner-mode: off
+server:
+  port: 6969
+  shutdown: graceful
+  lifecycle:
+    timeout-per-shutdown-phase: 15
+
+logging:
+  level:
+    jerin.ignatious: INFO
+    org:
+      springframework:
+        web.filter.CommonsRequestLoggingFilter: DEBUG
+
+management:
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus, env
